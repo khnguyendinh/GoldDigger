@@ -36,12 +36,14 @@ public class Pod : MonoBehaviour {
                 _Rod.GetComponent<Boom>().Bang(_Rod.position);
                 break;
             case Config.TAG_GOLD:
+            case Config.TAG_MOUSE:
                 _Rod.SetParent(transform);
                 break;
         }
         _dollar = _Rod.GetComponent<Rod>().dollar;
      //   _Rod.transform.rotation = Quaternion.Euler(0, 0, 0);
         _slowDown = _Rod.GetComponent<Rod>().slowDown;
+        Destroy(_Rod.GetComponent<Rod>());
         podState = PodState.REWIND;
     }
     void Awake() {
