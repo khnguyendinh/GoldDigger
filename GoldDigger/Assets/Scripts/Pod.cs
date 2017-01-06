@@ -17,6 +17,8 @@ public class Pod : MonoBehaviour {
     private int _rotateSpeed = 2;
     [SerializeField]
     private float _speed;
+    [SerializeField]
+    private Transform point;
     private Animator _mainAnimator;
     public int _dollar,_sumDollar;
     private Vector3 _original;
@@ -26,8 +28,10 @@ public class Pod : MonoBehaviour {
     #endregion
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log("_flagged " + _flagged);
         if (_flagged)
             return;
+        _flagged = true;
         _Rod = collision.transform;
         switch (collision.tag)
         {
@@ -37,10 +41,11 @@ public class Pod : MonoBehaviour {
                 break;
             case Config.TAG_GOLD:
             case Config.TAG_MOUSE:
-                _flagged = true;
                 _Rod.SetParent(transform);
+                _Rod.localPosition = point.localPosition;
                 break;
         }
+        Debug.Log("Tag "+collision.tag);
         _dollar = _Rod.GetComponent<Rod>().dollar;
      //   _Rod.transform.rotation = Quaternion.Euler(0, 0, 0);
         _slowDown = _Rod.GetComponent<Rod>().slowDown;
@@ -62,6 +67,7 @@ public class Pod : MonoBehaviour {
                     podState = PodState.SHOOT;
                 }
                 _angle += _rotateSpeed;
+                //_flagged = false;
                 if (_angle > 70 || _angle < -70)
                 {
                     _rotateSpeed *= -1;
@@ -70,7 +76,6 @@ public class Pod : MonoBehaviour {
                 break;
             case PodState.SHOOT:
                 _mainAnimator.Play("Shoot");
-                _flagged = false;
                 transform.Translate(Vector3.down * _speed * Time.deltaTime);
                 if(Mathf.Abs(transform.position.x) >14 || transform.position.y < -4)
                 {
@@ -85,7 +90,6 @@ public class Pod : MonoBehaviour {
                 {
                     if(_Rod != null)
                     {
-
                         _slowDown = 0;
                         _flagged = false;
                         addDollar(_dollar);
