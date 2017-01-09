@@ -29,7 +29,7 @@ namespace com.LampStudio.GoldDiggerOnline
         public byte MaxPlayersPerRoom = 4;
         private void Awake()
         {
-            PhotonNetwork.autoJoinLobby = true;
+            PhotonNetwork.autoJoinLobby = false;
             PhotonNetwork.automaticallySyncScene = true;
             // #NotImportant
             // Force LogLevel
@@ -44,6 +44,7 @@ namespace com.LampStudio.GoldDiggerOnline
 
         public void Connect()
         {
+            isConnecting = true;
             Debug.Log("connect !!!! ");
             progressLabel.SetActive(true);
             controlPanel.SetActive(false);
@@ -57,28 +58,19 @@ namespace com.LampStudio.GoldDiggerOnline
                 PhotonNetwork.ConnectUsingSettings(_gameVersion);
             }
             // keep track of the will to join a room, because when we come back from the game we will get a callback that we are connected, so we need to know what to do then
-            isConnecting = true;
+            
         }
         public override void OnConnectedToMaster()
         {
-            Debug.Log("DemoAnimator/Launcher: OnConnectedToMaster() was called by PUN");
+            Debug.Log("DemoAnimator/Launcher: OnConnectedToMaster() was called by PUN ");
             // we don't want to do anything if we are not attempting to join a room. 
             // this case where isConnecting is false is typically when you lost or quit the game, when this level is loaded, OnConnectedToMaster will be called, in that case
             // we don't want to do anything.
             if (isConnecting)
             {
-                Debug.Log("PhotonNetwork.JoinRandomRoom() khoand " + PhotonNetwork.GetRoomList().Length);
+                Debug.Log("PhotonNetwork.JoinRandomRoom() " );
                 // #Critical: The first we try to do is to join a potential existing room. If there is, good, else, we'll be called back with OnPhotonRandomJoinFailed()
-                if (PhotonNetwork.GetRoomList().Length > 0)
-                {
-                    PhotonNetwork.JoinRandomRoom();
-                }
-                else
-                {
-                    Debug.Log("PhotonNetwork.CreateRoom() khoand");
-                    PhotonNetwork.CreateRoom("Room Random1", new RoomOptions() { maxPlayers = MaxPlayersPerRoom }, null);
-                    //OnJoinedRoom();
-                }
+                PhotonNetwork.JoinRandomRoom();
             }
         }
         public override void OnDisconnectedFromPhoton()
@@ -98,6 +90,16 @@ namespace com.LampStudio.GoldDiggerOnline
         public override void OnPhotonCreateRoomFailed(object[] codeAndMsg)
         {
             Debug.Log("OnPhotonCreateRoomFailed");
+            PhotonNetwork.CreateRoom("Room Random", new RoomOptions() { maxPlayers = MaxPlayersPerRoom }, null);
+        }
+        public override void OnPhotonJoinRoomFailed(object[] codeAndMsg)
+        {
+            Debug.Log("OnPhotonJoinRoomFailed");
+            PhotonNetwork.CreateRoom("Room Random", new RoomOptions() { maxPlayers = MaxPlayersPerRoom }, null);
+        }
+        public override void OnPhotonRandomJoinFailed(object[] codeAndMsg)
+        {
+            Debug.Log("OnPhotonRandomJoinFailed");
             PhotonNetwork.CreateRoom("Room Random", new RoomOptions() { maxPlayers = MaxPlayersPerRoom }, null);
         }
         public override void OnJoinedRoom()
