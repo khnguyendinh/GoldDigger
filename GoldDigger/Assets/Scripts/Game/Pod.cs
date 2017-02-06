@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class Pod : MonoBehaviour {
 
     public enum PodState { 
@@ -24,7 +24,7 @@ public class Pod : MonoBehaviour {
     private Vector3 _original;
     private Transform _Rod;
     private bool _flagged;
-    private GUIText _score;
+    public Text _score;
     #endregion
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -54,7 +54,6 @@ public class Pod : MonoBehaviour {
     }
     void Awake() {
         _original = transform.position;
-        _score = Camera.main.GetComponent<GUIText>();
         _mainAnimator = transform.root.GetComponent<Animator>();
     }
     void Update()
