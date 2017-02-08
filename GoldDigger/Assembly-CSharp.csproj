@@ -196,7 +196,9 @@
      <Compile Include="Assets\PhotonChatApi\IChatClientListener.cs" />
      <Compile Include="Assets\Scripts\Game\Boom.cs" />
      <Compile Include="Assets\Scripts\Game\Config.cs" />
+     <Compile Include="Assets\Scripts\Game\Dialog\DialogLose.cs" />
      <Compile Include="Assets\Scripts\Game\Dialog\DialogPause.cs" />
+     <Compile Include="Assets\Scripts\Game\Dialog\DialogWin.cs" />
      <Compile Include="Assets\Scripts\Game\Line.cs" />
      <Compile Include="Assets\Scripts\Game\Mouse.cs" />
      <Compile Include="Assets\Scripts\Game\Pod.cs" />
@@ -204,6 +206,7 @@
      <Compile Include="Assets\Scripts\Launcher\GameManager.cs" />
      <Compile Include="Assets\Scripts\Launcher\Launcher.cs" />
      <Compile Include="Assets\Scripts\Launcher\PlayerNameInputField.cs" />
+     <Compile Include="Assets\Scripts\StartGame\CountDownTime.cs" />
      <Compile Include="Assets\Scripts\StartGame\StartGame.cs" />
      <None Include="Assets\Photon Unity Networking\Demos\MarcoPolo-Tutorial\marcopolo-readme.txt" />
      <None Include="Assets\Photon Unity Networking\link.xml" />
@@ -214,9 +217,6 @@
      <None Include="Assets\Photon Unity Networking\readme.txt" />
      <None Include="Assets\Photon Unity Networking\Demos\DemoRockPaperScissors\Assets\OpenSans\Apache License.txt" />
      <None Include="Assets\Photon Unity Networking\changelog.txt" />
- <Reference Include="UnityEngine.Advertisements">
- <HintPath>C:/Program Files/Unity 5.5.0f3/Unity/Editor/Data/UnityExtensions/Unity/Advertisements/UnityEngine.Advertisements.dll</HintPath>
- </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity 5.5.0f3/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
@@ -231,9 +231,6 @@
  </Reference>
  <Reference Include="UnityEngine.HoloLens">
  <HintPath>C:/Program Files/Unity 5.5.0f3/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.Purchasing">
- <HintPath>C:/Program Files/Unity 5.5.0f3/Unity/Editor/Data/UnityExtensions/Unity/UnityPurchasing/UnityEngine.Purchasing.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.VR">
  <HintPath>C:/Program Files/Unity 5.5.0f3/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>

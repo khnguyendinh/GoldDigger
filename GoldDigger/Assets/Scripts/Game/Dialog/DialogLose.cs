@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DialogPause : MonoBehaviour {
+public class DialogLose : MonoBehaviour {
     public GameObject panelPause;
     public void quitGame()
     {
