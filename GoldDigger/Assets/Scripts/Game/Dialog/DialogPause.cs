@@ -14,7 +14,7 @@ public class DialogPause : MonoBehaviour {
     }
     public void pauseGame()
     {
-        panelPause.SetActive(true);
         Time.timeScale = 0;
+        panelPause.SetActive(true);
     }
 }
