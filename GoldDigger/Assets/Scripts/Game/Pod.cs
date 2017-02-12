@@ -20,11 +20,13 @@ public class Pod : MonoBehaviour {
     [SerializeField]
     private Transform point;
     private Animator _mainAnimator;
-    public int _dollar,_sumDollar;
+    public int _dollar;
     private Vector3 _original;
     private Transform _Rod;
     private bool _flagged;
     public Text _score;
+    public Button pauseButton;
+    public Button continueButton;
     #endregion
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -58,6 +60,22 @@ public class Pod : MonoBehaviour {
     }
     void Update()
     {
+        
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            if (!GameManager.Instance.Paused)
+            {
+                pauseButton.onClick.Invoke();
+            }
+            else
+            {
+                Debug.Log("continue");
+                continueButton.onClick.Invoke();
+            }
+        }
+        if (GameManager.Instance.Paused)
+        {
+            return;
+        }
         switch (podState)
         {
             case PodState.ROTATION:
@@ -115,7 +133,7 @@ public class Pod : MonoBehaviour {
     }
     void addDollar(int addDollar)
     {
-        _sumDollar += addDollar;
-        _score.text = string.Format("$ {0}", _sumDollar);
+        GameManager.Instance.Score += addDollar;
+        _score.text = string.Format("$ {0}", GameManager.Instance.Score);
     }
 }

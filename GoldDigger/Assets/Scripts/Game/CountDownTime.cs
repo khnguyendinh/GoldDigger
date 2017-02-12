@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class CountDownTime : MonoBehaviour {
     private float secondsLeft = 10f;
     public Text _timeLeft;
-    public GameObject pod;
+    public Text _score;
     public GameObject dialogWin;
     public GameObject dialogLose;
 
@@ -22,15 +22,19 @@ public class CountDownTime : MonoBehaviour {
         else
         {
             _timeLeft.text = (int)0+"";
-            Time.timeScale = 0;
-            Pod other = (Pod)pod.GetComponent(typeof(Pod));
-            if (other._dollar > 0)
+            if (!GameManager.Instance.Paused)
             {
-                dialogWin.SetActive(true);
-            }
-            else
-            {
-                dialogLose.SetActive(true);
+                Debug.Log("countdown");
+                GameManager.Instance.pauseGame();
+                if (GameManager.Instance.Score > 0)
+                {
+                    _score.text = "$ " + GameManager.Instance.Score;
+                    dialogWin.SetActive(true);
+                }
+                else
+                {
+                    dialogLose.SetActive(true);
+                }
             }
         }
 	}
